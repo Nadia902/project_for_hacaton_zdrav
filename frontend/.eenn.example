@@ -1,0 +1,8 @@
+# URL вашего бэкенда (измените на ваш сервер)
+NEXT_PUBLIC_REMOTE_API_URL=https://sololevelingzdravmaps.ru/api
+
+# Yandex OAuth (получите на https://oauth.yandex.com/)
+YANDEX_CLIENT_ID=xxx
+YANDEX_CLIENT_SECRET=xxx
+YANDEX_REDIRECT_URI=https://sololevelingzdravmaps.ru/auth/yandex
+NEXT_PUBLIC_APP_URL=https://sololevelingzdravmaps.ru

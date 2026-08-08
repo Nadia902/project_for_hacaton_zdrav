@@ -1,0 +1,37 @@
+version: "3.8"
+
+services:
+  frontend:
+    image: mizuki666/sololeveling_frontend:latest
+    container_name: sololeveling-frontend
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+    environment:
+      - NODE_ENV=production
+      # URL для локальных Next.js API routes
+      - NEXT_PUBLIC_API_URL=/api
+      # URL для удаленного FastAPI сервера (измените на ваш бэкенд)
+      - NEXT_PUBLIC_REMOTE_API_URL=http://158.160.177.129:8000/api
+      # Yandex OAuth Configuration
+      - YANDEX_CLIENT_ID=${YANDEX_CLIENT_ID}
+      - YANDEX_CLIENT_SECRET=${YANDEX_CLIENT_SECRET}
+      # Redirect URI для OAuth callback
+      - YANDEX_REDIRECT_URI=${YANDEX_REDIRECT_URI}
+      # Базовый URL приложения
+      - NEXT_PUBLIC_APP_URL=${NEXT_PUBLIC_APP_URL}
+    restart: unless-stopped
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "node",
+          "-e",
+          "require('http').get('http://localhost:3000', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})",
+        ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+

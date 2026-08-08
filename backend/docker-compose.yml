@@ -1,0 +1,28 @@
+version: "3.8"
+
+services:
+  backend:
+    image: mizuki666/sololeveling_backend:latest
+    container_name: sololeveling-backend
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    environment:
+      - PG_HOST=${PG_HOST}
+      - PG_PORT=${PG_PORT}
+      - PG_DATABASE=${PG_DATABASE}
+      - PG_USER=${PG_USER}
+      - PG_PASSWORD=${PG_PASSWORD}
+      - YANDEX_CLIENT_ID=${YANDEX_CLIENT_ID}
+      - YANDEX_CLIENT_SECRET=${YANDEX_CLIENT_SECRET}
+      - YANDEX_REDIRECT_URI=${YANDEX_REDIRECT_URI}
+      - SECRET_KEY=${SECRET_KEY}
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
